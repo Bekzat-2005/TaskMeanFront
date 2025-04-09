@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { AddTaskComponent } from './add-task/add-task.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [HttpClientModule, AddTaskComponent, TaskListComponent],
+  templateUrl: './app.component.html'
 })
-export class AppComponent {
-  title = 'frontend';
-}
+export class AppComponent { }
