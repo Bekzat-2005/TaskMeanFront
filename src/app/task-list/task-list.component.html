@@ -2,14 +2,13 @@
 <ul>
   <li *ngFor="let task of tasks">
     <div *ngIf="editTaskId !== task._id">
-      <span>{{ task.title }} — {{ task.description }}</span>
+      <span>{{ task.title }}</span>
       <button (click)="startEdit(task)">Өзгерту</button>
       <button (click)="deleteTask(task._id)">Өшіру</button>
     </div>
 
     <div *ngIf="editTaskId === task._id">
       <input [(ngModel)]="editTitle" placeholder="Тапсырманың аты" />
-      <input [(ngModel)]="editDescription" placeholder="Тапсырманың сипаттамасы" />
       <button (click)="saveEdit()">Сақтау</button>
       <button (click)="cancelEdit()">Болдырмау</button>
     </div>

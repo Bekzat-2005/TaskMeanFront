@@ -2,31 +2,25 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class TaskService {
-  private apiUrl = 'http://localhost:3000/tasks'; // Express серверінің API URL
+  private apiUrl = 'http://localhost:3000/tasks';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  // Барлық тапсырмаларды алу
   getTasks(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+    return this.http.get(this.apiUrl);
   }
 
-  // Жаңа тапсырма қосу
-  addTask(task: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, task);
+  addTask(title: string): Observable<any> {
+    return this.http.post(this.apiUrl, { title });
   }
 
-  // Тапсырманы жаңарту
-  updateTask(id: string, task: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, task);
+  updateTask(id: string, title: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, { title });
   }
 
-  // Тапсырманы өшіру
   deleteTask(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

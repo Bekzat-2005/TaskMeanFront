@@ -12,44 +12,31 @@ import { FormsModule } from '@angular/forms';
 export class TaskListComponent implements OnInit {
   tasks: any[] = [];
   editTaskId: string | null = null;
-  editTitle: string = '';
-  editDescription: string = '';
+  editTitle = '';
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
     this.loadTasks();
   }
 
   loadTasks(): void {
-    this.taskService.getTasks().subscribe((tasks) => {
-      this.tasks = tasks;
-    });
+    this.taskService.getTasks().subscribe(tasks => this.tasks = tasks);
   }
 
   deleteTask(id: string): void {
-    this.taskService.deleteTask(id).subscribe(() => {
-      this.loadTasks();
-    });
+    this.taskService.deleteTask(id).subscribe(() => this.loadTasks());
   }
 
   startEdit(task: any): void {
     this.editTaskId = task._id;
     this.editTitle = task.title;
-    this.editDescription = task.description;
   }
 
   saveEdit(): void {
     if (this.editTaskId) {
-      const updatedTask = {
-        title: this.editTitle,
-        description: this.editDescription
-      };
-
-      this.taskService.updateTask(this.editTaskId, updatedTask).subscribe(() => {
-        this.editTaskId = null;
-        this.editTitle = '';
-        this.editDescription = '';
+      this.taskService.updateTask(this.editTaskId, this.editTitle).subscribe(() => {
+        this.cancelEdit();
         this.loadTasks();
       });
     }
@@ -58,6 +45,5 @@ export class TaskListComponent implements OnInit {
   cancelEdit(): void {
     this.editTaskId = null;
     this.editTitle = '';
-    this.editDescription = '';
   }
 }

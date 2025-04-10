@@ -10,19 +10,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class AddTaskComponent {
   title = '';
-  description = '';
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService) {}
 
   addTask(): void {
-    const newTask = {
-      title: this.title,
-      description: this.description
-    };
-
-    this.taskService.addTask(newTask).subscribe(() => {
-      this.title = '';
-      this.description = '';
-    });
+    if (!this.title.trim()) return;
+    this.taskService.addTask(this.title).subscribe(() => this.title = '');
   }
 }
